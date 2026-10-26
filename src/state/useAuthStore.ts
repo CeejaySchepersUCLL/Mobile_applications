@@ -3,7 +3,7 @@ import { login as loginService, logout as logoutService } from '../services/auth
 import type { User } from '../types/User';
 
 interface AuthState {
-  user: User | null;
+  user: User | undefined;
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
@@ -11,7 +11,7 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
+  user: undefined,
   isAuthenticated: false,
   isLoading: false,
   login: async (email, password) => {
@@ -26,6 +26,6 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
   logout: async () => {
     await logoutService();
-    set({ user: null, isAuthenticated: false });
+    set({ user: undefined, isAuthenticated: false });
   },
 }));

@@ -6,20 +6,27 @@ import { InputField } from '../src/components/primitives/InputField';
 import { StyledButton } from '../src/components/StyledButton';
 import { Stack } from '../src/components/primitives/Stack';
 import { Text } from '../src/components/primitives/Text';
+import { Validators } from '../src/utils/validators';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState<string | undefined>(undefined);
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [passwordError, setPasswordError] = useState<string | undefined>(undefined);
   const { login, isLoading } = useAuthStore();
 
   const handleLogin = async () => {
-    setError('');
+    const nextEmailError = Validators.validateEmail(email);
+    const nextPasswordError = Validators.validatePassword(password);
+    setEmailError(nextEmailError);
+    setPasswordError(nextPasswordError);
+    if (nextEmailError !== undefined || nextPasswordError !== undefined) return;
+
     try {
       await login(email, password);
       router.replace('/');
     } catch {
-      setError('Login failed. Check your credentials.');
+      setPasswordError('Wrong email or password');
     }
   };
 
@@ -30,17 +37,24 @@ export default function LoginScreen() {
         <InputField
           label="Email"
           value={email}
-          onChangeText={setEmail}
+          onChangeText={(text) => {
+            setEmail(text);
+            setEmailError(undefined);
+          }}
           placeholder="you@example.com"
           testID="email-input"
+          error={emailError}
         />
         <InputField
           label="Password"
           value={password}
-          onChangeText={setPassword}
+          onChangeText={(text) => {
+            setPassword(text);
+            setPasswordError(undefined);
+          }}
           secureTextEntry
           testID="password-input"
-          error={error !== '' ? error : undefined}
+          error={passwordError}
         />
         <StyledButton
           label="Log in"
