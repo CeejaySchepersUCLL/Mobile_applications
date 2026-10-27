@@ -11,12 +11,12 @@ function validateEmail(value: string) : string | undefined {
   if(email === '') return 'Enter your email';
   if(!EMAIL_PATTERN.test(email)) return ' Add the full email, like example@example.com';
   return undefined;
-};
+}
 
 function validatePassword(value: string): string | undefined {
   if(value === '') return 'Enter your password';
   return undefined;
-};
+}
 
 export const Validators = {
   validateEmail,

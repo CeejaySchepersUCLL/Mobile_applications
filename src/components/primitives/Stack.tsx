@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import { theme } from '../../theme';
+import { theme } from '@/theme';
 
 type Gap = 'none' | 'sm' | 'md' | 'lg';
 type Align = 'flex-start' | 'center' | 'flex-end' | 'stretch';

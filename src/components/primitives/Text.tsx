@@ -1,5 +1,5 @@
 import { Text as RNText, StyleSheet } from 'react-native';
-import { theme } from '../../theme';
+import { theme } from '@/theme';
 
 type TextColor = 'default' | 'muted' | 'primary' | 'danger' | 'inverse';
 type TextAlign = 'left' | 'center' | 'right';

@@ -1,6 +1,7 @@
 import { ScrollView, View, StyleSheet } from 'react-native';
 import type { ViewStyle } from 'react-native';
-import { theme } from '../../theme';
+import { theme } from '@/theme';
+import React from "react";
 
 type Padding = 'none' | 'sm' | 'md' | 'lg';
 

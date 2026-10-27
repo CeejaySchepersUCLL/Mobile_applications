@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import type { TextStyle } from 'react-native';
 import { Text } from './Text';
-import { theme } from '../../theme';
+import { theme } from '@/theme';
 
 interface InputFieldProps {
   label: string;
@@ -56,7 +56,7 @@ export function InputField({
             accessibilityRole="button"
             accessibilityLabel={isPasswordVisible ? 'Hide password' : 'Show password'}
             style={styles.toggle}
-            testID={testID !== undefined ? `&{testID}-toggle` : undefined}
+            testID={testID !== undefined ? `${testID}-toggle` : undefined}
           >
             <Text weight="semibold" color="primary" >
               {isPasswordVisible? 'Hide' : 'Show'}

@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from 'expo-router';
-import { Screen } from '../../../src/components/primitives/Screen';
-import { Stack } from '../../../src/components/primitives/Stack';
-import { Text } from '../../../src/components/primitives/Text';
+import { Screen } from '@/components/primitives';
+import { Stack } from '@/components/primitives';
+import { Text } from '@/components/primitives';
 
 export default function DetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
