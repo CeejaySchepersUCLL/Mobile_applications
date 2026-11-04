@@ -1,8 +1,10 @@
 import { Text as RNText, StyleSheet } from 'react-native';
 import { theme } from '@/theme';
 
-type TextColor = 'default' | 'muted' | 'primary' | 'danger' | 'inverse';
+type TextColor = 'default' | 'muted' | 'primary' | 'danger' | 'inverse' | 'success' | 'warning';
 type TextAlign = 'left' | 'center' | 'right';
+
+
 
 interface TextProps {
   children: React.ReactNode;
@@ -55,6 +57,8 @@ const styles = StyleSheet.create({
   colorPrimary: { color: theme.color.primary },
   colorDanger: { color: theme.color.danger },
   colorInverse: { color: theme.color.white },
+  colorSuccess: { color: theme.color.success },
+  colorWarning: { color: theme.color.warning },
   alignLeft: { textAlign: 'left' },
   alignCenter: { textAlign: 'center' },
   alignRight: { textAlign: 'right' },
@@ -63,6 +67,7 @@ const styles = StyleSheet.create({
 const colorStyles: Record<TextColor, object> = {
     default: styles.colorDefault, muted: styles.colorMuted, primary: styles.colorPrimary,
     danger: styles.colorDanger, inverse: styles.colorInverse,
+  success: styles.colorSuccess, warning: styles.colorWarning,
 };
 
 const alignStyles: Record<TextAlign, object> = {
