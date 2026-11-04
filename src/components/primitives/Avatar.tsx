@@ -1,5 +1,6 @@
 import { View, Image, StyleSheet } from 'react-native';
 import { Text } from './Text';
+import { theme } from '@/theme';
 
 interface AvatarProps {
   uri?: string;
@@ -24,9 +25,14 @@ export function Avatar({ uri, name, size = 'md' }: AvatarProps) {
 }
 
 const styles = StyleSheet.create({
-  base: { borderRadius: 999, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
-  fallback: {},
-  sm: {},
-  md: {},
-  lg: {},
+  base: {
+    borderRadius: theme.radius.pill,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  fallback: { backgroundColor: theme.color.primarySoft },
+  sm: { width: 32, height: 32 },
+  md: { width: 40, height: 40 },
+  lg: { width: 56, height: 56 },
 });
