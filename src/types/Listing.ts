@@ -8,6 +8,12 @@ export enum ListingCategory {
   Electronics = 'electronics',
 }
 
+export interface ListingDraft {
+  title: string;
+  description: string;
+  category: ListingCategory;
+}
+
 export interface Listing {
   id: string;
   title: string;

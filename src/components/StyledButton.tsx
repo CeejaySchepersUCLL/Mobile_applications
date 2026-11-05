@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet } from 'react-native';
 import { Spinner } from './primitives/Spinner';
 import { Text } from './primitives/Text';
-import { theme } from '../theme';
+import { theme } from '@/theme';
 
 interface StyledButtonProps {
   label: string;
