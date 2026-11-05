@@ -4,6 +4,7 @@ import {Validators} from "@/utils/validators";
 import { Stack } from './primitives/Stack';
 import {InputField} from "@/components/primitives";
 import {StyledButton} from "@/components/StyledButton";
+import { DateField } from './primitives/DateField';
 
 
 interface CommunityRequestFormProps {
@@ -22,7 +23,9 @@ export function CommunityRequestForm({ onSubmit }: CommunityRequestFormProps) {
   const handleSubmit = () => {
     const nextTitleError = Validators.validateRequired(title, 'Enter what you need');
     const nextStartDateError = Validators.validateRequired(startDate, 'Enter a start date');
-    const nextEndDateError = Validators.validateRequired(endDate, 'Enter a end date');
+    const nextEndDateError =
+      Validators.validateDate(endDate, 'Enter an end date') ??
+      Validators.validateDateRange(startDate, endDate);
     setTitleError(nextTitleError);
     setStartDateError(nextStartDateError);
     setEndDateError(nextEndDateError);
@@ -55,25 +58,24 @@ export function CommunityRequestForm({ onSubmit }: CommunityRequestFormProps) {
         testID="request-title-input"
         error={titleError}
       />
-      <InputField
+      <DateField
         label="From"
         value={startDate}
-        onChangeText={(text) => {
-          setStartDate(text);
+        onChange={(date) => {
+          setStartDate(date);
           setStartDateError(undefined);
         }}
-        placeholder="YYYY-MM-DD"
         testID="request-start-input"
         error={startDateError}
       />
-      <InputField
+      <DateField
         label="Until"
         value={endDate}
-        onChangeText={(text) => {
-          setEndDate(text);
+        onChange={(date) => {
+          setEndDate(date);
           setEndDateError(undefined);
         }}
-        placeholder="YYYY-MM-DD"
+        minimumDate={startDate === '' ? undefined : startDate}
         testID="request-end-input"
         error={endDateError}
       />
@@ -84,7 +86,7 @@ export function CommunityRequestForm({ onSubmit }: CommunityRequestFormProps) {
         placeholder="What will you use it for?"
         testID="request-description-input"
       />
-      <StyledButton label="Post request" onPress={handleSubmit}testID="create-submit-request" />
+      <StyledButton label="Post request" onPress={handleSubmit} testID="create-submit-request" />
     </Stack>
   );
 }

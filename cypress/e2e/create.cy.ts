@@ -44,4 +44,23 @@ describe('Create screen', () => {
     cy.get('[data-testid="request-end-input-error"]').should('exist');
     cy.get('[data-testid="request-description-input-error"]').should('not.exist');
   });
+
+  it('accepts valid dates without errors', () => {
+    cy.get('[data-testid="create-toggle-request"]').click();
+    cy.get('[data-testid="request-title-input"]').type('A ladder');
+    cy.get('[data-testid="request-start-input"]').type('2026-11-01');
+    cy.get('[data-testid="request-end-input"]').type('2026-11-02');
+    cy.get('[data-testid="create-submit-request"]').click();
+    cy.get('[data-testid$="-input-error"]').should('not.exist');
+  });
+
+  it('shows an error when the end date is before the start date', () => {
+    cy.get('[data-testid="create-toggle-request"]').click();
+    cy.get('[data-testid="request-title-input"]').type('A ladder');
+    cy.get('[data-testid="request-start-input"]').type('2026-11-10');
+    cy.get('[data-testid="request-end-input"]').type('2026-11-05');
+    cy.get('[data-testid="create-submit-request"]').click();
+    cy.get('[data-testid="request-end-input-error"]').should('contain', 'cannot be before');
+    cy.get('[data-testid="request-start-input-error"]').should('not.exist');
+  });
 });

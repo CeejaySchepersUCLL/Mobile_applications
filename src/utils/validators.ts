@@ -31,9 +31,18 @@ function validateDate(value: string, emptyMessage: string) : string | undefined 
   return undefined;
 }
 
+function validateDateRange(startDate: string, endDate: string): string | undefined {
+  // ISO dates compare correctly as plain strings.
+  if (startDate !== '' && endDate !== '' && endDate < startDate) {
+    return 'The end date cannot be before the start date';
+  }
+  return undefined;
+}
+
 export const Validators = {
   validateRequired,
   validateEmail,
   validatePassword,
   validateDate,
+  validateDateRange
 };
