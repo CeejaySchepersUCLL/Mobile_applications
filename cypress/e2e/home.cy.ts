@@ -14,6 +14,7 @@ describe('Home screen', () => {
     cy.get('[data-testid="listing-card-listing-1"]').should('exist');
     cy.get('[data-testid^="listing-card-"]').should('have.length', 4);
     cy.get('[data-testid^="request-card-"]').should('not.exist');
+    cy.get('[data-testid="app-logo"]').should('be.visible');
   });
 
   it('switches to the community requests and back', () => {

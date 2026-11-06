@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "UCLL Mobile Starter",
-    "slug": "ucll-mobile-starter",
+    "name": "LendIt",
+    "slug": "lendit",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "ucllstarter",
+    "scheme": "lendit",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

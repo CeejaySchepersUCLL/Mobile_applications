@@ -9,6 +9,8 @@ import { SegmentedControl } from '@/components/primitives/SegmentedControl';
 import type { SegmentOption } from '@/components/primitives/SegmentedControl';
 import { ListingCard } from '@/components/ListingCard';
 import { CommunityRequestCard } from '@/components/CommunityRequestCard';
+import { Logo } from '@/components/primitives/Logo';
+import { Row } from '@/components/primitives/Row';
 
 type HomeMode = 'listings' | 'requests';
 
@@ -31,9 +33,14 @@ export default function HomeScreen() {
   return (
     <Screen padding="lg">
       <Stack gap="lg">
-        <Text size="xl" weight="bold" testID="home-title">
-          {user !== undefined ? `Welcome, ${user.name}` : 'Welcome'}
-        </Text>
+        <Row gap="md">
+          <Logo size="sm" />
+          <Stack grow>
+            <Text size="xl" weight="bold" testID="home-title">
+              {user !== undefined ? `Welcome, ${user.name}` : 'Welcome'}
+            </Text>
+          </Stack>
+        </Row>
         <SegmentedControl options={MODE_OPTIONS} value={mode} onChange={setMode} />
         {mode === 'listings'
           ? listings.map((listing) => <ListingCard key={listing.id} listing={listing} />)

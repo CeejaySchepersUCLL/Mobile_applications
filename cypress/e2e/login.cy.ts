@@ -10,6 +10,7 @@ describe('Login screen', () => {
     cy.get('[data-testid="email-input"]').should('exist');
     cy.get('[data-testid="password-input"]').should('exist');
     cy.get('[data-testid="login-button"]').should('exist');
+    cy.get('[data-testid="app-logo"]').should('be.visible');
   });
 
   it('shows an error under each empty field', () => {

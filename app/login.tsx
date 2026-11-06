@@ -7,6 +7,7 @@ import { StyledButton } from '@/components/StyledButton';
 import { Stack } from '@/components/primitives';
 import { Text } from '@/components/primitives';
 import { Validators } from '@/utils/validators';
+import { Logo } from '@/components/primitives/Logo';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -33,7 +34,10 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <Stack gap="lg" padding="lg">
-        <Text size="xl" weight="bold" align="center">Welcome back</Text>
+        <Stack align="center" gap="md">
+          <Logo size="lg" />
+          <Text size="xl" weight="bold" align="center">Welcome back</Text>
+        </Stack>
         <InputField
           label="Email"
           value={email}
