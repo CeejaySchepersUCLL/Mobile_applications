@@ -4,7 +4,7 @@ describe('Home screen', () => {
     cy.get('[data-testid="login-button"]').should('be.visible');
     // The page is pre-rendered HTML first; wait for React to attach before interacting.
     cy.wait(1000);
-    cy.get('[data-testid="email-input"]').type('demo@lendit.be');
+    cy.get('[data-testid="email-input"]').type('jan@lendit.be');
     cy.get('[data-testid="password-input"]').type('LendIt-demo-1');
     cy.get('[data-testid="login-button"]').click();
     cy.get('[data-testid="home-title"]').should('exist');

@@ -20,7 +20,7 @@ describe('Login screen', () => {
   });
 
   it('shows an error for wrong credentials', () => {
-    cy.get('[data-testid="email-input"]').type('demo@lendit.be');
+    cy.get('[data-testid="email-input"]').type('jan@lendit.be');
     cy.get('[data-testid="password-input"]').type('wrong-password');
     cy.get('[data-testid="login-button"]').click();
     cy.get('[data-testid="password-input-error"]').should('exist');
@@ -28,12 +28,19 @@ describe('Login screen', () => {
 
   it('logs in with valid credentials and navigates to home', () => {
     // Replace with your Supabase test credentials before running this test
-    const testEmail = 'demo@lendit.be';
+    const testEmail = 'jan@lendit.be';
     const testPassword = 'LendIt-demo-1';
 
     cy.get('[data-testid="email-input"]').type(testEmail);
     cy.get('[data-testid="password-input"]').type(testPassword);
     cy.get('[data-testid="login-button"]').click();
     cy.get('[data-testid="bottom-nav"]').should('exist');
+  });
+
+  it('logs in as a different user and shows their name', () => {
+    cy.get('[data-testid="email-input"]').type('mia@lendit.be');
+    cy.get('[data-testid="password-input"]').type('LendIt-demo-1');
+    cy.get('[data-testid="login-button"]').click();
+    cy.get('[data-testid="home-title"]').should('contain', 'Mia Peeters');
   });
 });

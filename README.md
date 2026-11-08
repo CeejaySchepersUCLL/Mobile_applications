@@ -1,9 +1,84 @@
-# boilderplate
-# boilderplate
+# LendIt
+
+LendIt is a peer-to-peer item-sharing app for closed communities such as campus dorms or apartment blocks. Instead of buying tools, board games or camping gear that sit idle most of the time, people lend items they own or post a request for something they need.
+
+Built with React Native (Expo) and Expo Router as a PWA, with Supabase planned as the backend.
+
+## Live app
+
+<PASTE THE VERCEL URL HERE AFTER DEPLOYMENT>
 
 ## Test login
-- Email: demo@lendit.be
-- Password: LendIt-demo-1
 
+| User         | Email           | Password      |
+|--------------|-----------------|---------------|
+| Jan Claes    | jan@lendit.be   | LendIt-demo-1 |
+| Mia Peeters  | mia@lendit.be   | LendIt-demo-1 |
+| Tom Janssens | tom@lendit.be   | LendIt-demo-1 |
+| Sara Peeters | sara@lendit.be  | LendIt-demo-1 |
 
-npx tsc --noEmit: command to run to check for error over the whole project
+These are dummy accounts for the first deadline. 
+They are checked inside `src/services/authService.ts` and match the profiles in `src/services/dummyProfiles.ts`. 
+They will be replaced by Supabase Auth.
+
+## What works in this version
+
+- Login with validation (empty fields, email format) and a show/hide password button
+- Auth guard: pages behind the login redirect to `/login` when you are logged out
+- Bottom navigation with three buttons: Home, Create (+) and Profile
+- **Home:** toggle between Items to Borrow and Community Requests, with static dummy data
+- **Create:** toggle between List an item and Post a request, with validated forms and a date picker for the request dates
+- **Profile:** name, email and log out
+- Installable PWA: web app manifest, service worker and app icons
+
+All data is hardcoded in `src/services` for now, so no API calls are made yet.
+
+## Database
+
+<FILL IN AFTER THE SUPABASE STEP: project region, the `profiles` table and how the database check is run>
+
+## Getting started
+
+Requirements: Node.js and npm.
+
+```bash
+npm install
+npm run web
+```
+
+Open http://localhost:8081 and log in with the test account above.
+
+## Tests
+
+End-to-end tests use Cypress and select elements by `data-testid` only. Start the app first, then in a second terminal:
+
+```bash
+npm run cypress:run     # headless
+npm run cypress:open    # interactive
+```
+
+## Project structure
+
+```
+app/                  Screens and routing (Expo Router), almost no styling
+  (app)/              Screens behind the login: Home, Create, Profile
+  login.tsx           Login screen
+  +html.tsx           HTML shell with the PWA manifest link and service worker
+src/
+  components/         Feature components (cards, forms, tab bar)
+    primitives/       Basic building blocks (Text, Stack, Card, InputField, ...)
+  services/           All data access (dummy data now, Supabase later)
+  state/              Zustand stores
+  types/              TypeScript types
+  utils/              Validators and date helpers
+  theme.ts            Colors, spacing and type scale
+public/               manifest.json, service worker and app icons
+cypress/              End-to-end tests
+```
+
+## Conventions
+
+- All styling lives in `StyleSheet.create` inside components
+- Everything is typed. No `null`, no `never`, and every `as` has a comment explaining why
+- All API calls go through the services
+- Cypress selects elements by `testID` only

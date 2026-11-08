@@ -3,7 +3,7 @@ describe('Login screen', () => {
     cy.visit('/login');
     cy.get('[data-testid="login-button"]').should('be.visible');
     cy.wait(1000);
-    cy.get('[data-testid="email-input"]').type('demo@lendit.be');
+    cy.get('[data-testid="email-input"]').type('jan@lendit.be');
     cy.get('[data-testid="password-input"]').type('LendIt-demo-1');
     cy.get('[data-testid="login-button"]').click();
     cy.get('[data-testid="bottom-nav"]').should('exist');
