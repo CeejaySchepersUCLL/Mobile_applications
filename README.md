@@ -1,103 +1,65 @@
 # LendIt
 
-LendIt is a peer-to-peer item-sharing app for closed communities such as campus dorms or apartment blocks. Instead of buying tools, board games or camping gear that sit idle most of the time, people lend items they own or post a request for something they need.
+LendIt is a peer-to-peer item-sharing app for closed communities such as campus dorms or apartment blocks. Instead of buying things that sit idle most of the time (tools, board games, camping gear), people lend what they own or post a request for what they need.
 
-Built with React Native (Expo) and Expo Router as a PWA, with Supabase planned as the backend.
-
-## Live app
-
-PASTE THE VERCEL URL HERE AFTER DEPLOYMENT
+**Live app:** https://mobile-applications-opal.vercel.app
 
 ## Test login
 
-| User         | Email           | Password      |
-|--------------|-----------------|---------------|
-| Jan Claes    | jan@lendit.be   | LendIt-demo-1 |
-| Mia Peeters  | mia@lendit.be   | LendIt-demo-1 |
-| Tom Janssens | tom@lendit.be   | LendIt-demo-1 |
-| Sara Peeters | sara@lendit.be  | LendIt-demo-1 |
+| User         | Email          | Password      |
+|--------------|----------------|---------------|
+| Jan Claes    | jan@lendit.be  | LendIt-demo-1 |
+| Mia Peeters  | mia@lendit.be  | LendIt-demo-1 |
+| Tom Janssens | tom@lendit.be  | LendIt-demo-1 |
+| Sara Peeters | sara@lendit.be | LendIt-demo-1 |
 
-These are dummy accounts for the first deadline. 
-They are checked inside `src/services/authService.ts` and match the profiles in `src/services/dummyProfiles.ts`. 
-They will be replaced by Supabase Auth.
+These are dummy accounts for the first deadline. Supabase Auth replaces them later.
 
-## What works in this version
+## What is in this version
 
-- Login with validation (empty fields, email format) and a show/hide password button
-- Auth guard: pages behind the login redirect to `/login` when you are logged out
-- Bottom navigation with three buttons: Home, Create (+) and Profile
-- **Home:** toggle between Items to Borrow and Community Requests, with static dummy data
-- **Create:** toggle between List an item and Post a request, with validated forms and a date picker for the request dates
-- **Profile:** name, email and log out
-- Installable PWA: web app manifest, service worker and app icons
-- - Supabase connection check on the Profile page (one API call to a hosted database)
-
-All app data is hardcoded in `src/services` for now. The only API call is the Supabase connection check on the Profile page.
+- Installable PWA (web app manifest, service worker, app icons)
+- Login with validation, three-button navigation (Home, Create, Profile)
+- **Home:** toggle between Items to Borrow and Community Requests (static data)
+- **Create:** forms to list an item or post a request (static, validated)
+- **Profile:** user info, log out and the database status
 
 ## Database
 
-The backend is a hosted Supabase project (PostgreSQL), region `<YOUR REGION, e.g. eu-central-1>`.
+The backend is a hosted Supabase project (PostgreSQL) with a `profiles` table holding four dummy profiles. To check that it is up and running, log in and open the **Profile** page. The Supabase status card makes one request to the database and shows either **Connected (4 profiles)** or **Not connected**.
 
-| Table      | Columns                                  | Rows |
-|------------|------------------------------------------|------|
-| `profiles` | `id` (uuid), `full_name`, `avatar_url`, `building` | 4 dummy profiles (Jan, Mia, Tom, Sara) |
+## Built with
 
-Row Level Security is enabled on `profiles`, with a read-only policy for the `anon` and `authenticated` roles. This is acceptable for dummy data and will be tightened when login moves to Supabase Auth.
+- React Native (Expo) and Expo Router
+- TypeScript
+- Supabase (database)
+- Cypress (end-to-end tests)
+- Vercel (hosting)
 
-### Checking that the database is up
+## The idea
 
-Log in and open the **Profile** page. The Supabase status card runs one request against the `profiles` table and shows:
+### Target audience
 
-- **Connected (4 profiles)** when the database answers
-- **Not connected** when the request fails
+- **Primary:** students in campus housing or shared dorms, with a small budget, little storage space and frequent short-term equipment needs.
+- **Secondary:** residents of apartment complexes or neighbourhoods who want to save money and reduce waste by sharing rarely used items.
 
-This is the only API call in this version. Everything else uses the hardcoded data in `src/services`.
+### Roadmap
 
-## Getting started
+- [x] PWA with login, navigation, Home, Create and Profile screens
+- [x] Hosted database with dummy data and a connection check
+- [ ] Real authentication with Supabase Auth
+- [ ] Save listings and community requests to the database
+- [ ] Search and category filters
+- [ ] Borrow requests with approval, and an Activity screen (pending, active, returned)
+- [ ] Photos for listings (Supabase Storage)
+- [ ] Profile statistics and trust ratings
 
-Requirements: Node.js and npm.
+Out of scope: payments, shipping and government ID verification. Exchanges are strictly local and peer to peer.
 
-```bash
-```bash
-npm install
-cp .env.example .env     # then fill in the Supabase values
-npm run web
-```
-```
+### Competitors
 
-Open http://localhost:8081 and log in with the test account above.
-
-## Tests
-
-End-to-end tests use Cypress and select elements by `data-testid` only. Start the app first, then in a second terminal:
-
-```bash
-npm run cypress:run     # headless
-npm run cypress:open    # interactive
-```
-
-## Project structure
-
-```
-app/                  Screens and routing (Expo Router), almost no styling
-  (app)/              Screens behind the login: Home, Create, Profile
-  login.tsx           Login screen
-  +html.tsx           HTML shell with the PWA manifest link and service worker
-src/
-  components/         Feature components (cards, forms, tab bar)
-    primitives/       Basic building blocks (Text, Stack, Card, InputField, ...)
-  services/           All data access (dummy data now, Supabase later)
-  state/              Zustand stores
-  types/              TypeScript types
-  utils/              Validators and date helpers
-  theme.ts            Colors, spacing and type scale
-public/               manifest.json, service worker and app icons
-cypress/              End-to-end tests
-```
-
-## Conventions
-
-- All styling lives in `StyleSheet.create` inside components
-- Everything is typed. No `null`, no `never`, and every `as` has a comment explaining why
-- All API calls go through the services
-- Cypress selects elements by `testID` only
+| Competitor | What it is | How LendIt differs |
+|---|---|---|
+| Peerby | App for borrowing things from neighbours | LendIt targets closed communities such as dorms, with an approval step and a dual market of listings and requests |
+| Facebook Marketplace and neighbourhood groups | Mostly buying and selling, with lending handled in group posts | LendIt is built only for lending, with availability and status tracking |
+| Hoplr and Nextdoor | Neighbourhood social networks | Lending is a side feature there and the core feature here |
+| Library of Things | Physical libraries that lend household items | LendIt needs no central stock, since the items belong to the community members |
