@@ -1,10 +1,12 @@
-import {Redirect, Tabs} from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 import { useAuthStore } from '@/state/useAuthStore';
 import { AppTabBar } from '@/components/AppTabBar';
 
 export default function AppLayout() {
-  // Uncomment when you implement Supabase authentication:
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const hasHydrated = useAuthStore((state) => state.hasHydrated);
+
+  if (!hasHydrated) return null;
   if (!isAuthenticated) return <Redirect href="/login" />;
 
   return (

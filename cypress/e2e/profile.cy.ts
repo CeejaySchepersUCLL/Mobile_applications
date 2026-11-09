@@ -22,4 +22,17 @@ describe('Profile screen', () => {
     cy.get('[data-testid="login-button"]').should('exist');
     cy.get('[data-testid="bottom-nav"]').should('not.exist');
   });
+
+  it('stays logged in after a reload', () => {
+    cy.reload();
+    cy.get('[data-testid="profile-title"]').should('exist');
+    cy.get('[data-testid="profile-name"]').should('contain', 'Jan Claes');
+  });
+
+  it('stays logged out after logging out', () => {
+    cy.get('[data-testid="logout-button"]').click();
+    cy.get('[data-testid="login-button"]').should('exist');
+    cy.visit('/profile');
+    cy.get('[data-testid="login-button"]').should('exist');
+  });
 });
