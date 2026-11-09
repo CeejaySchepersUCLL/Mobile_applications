@@ -6,7 +6,7 @@ Built with React Native (Expo) and Expo Router as a PWA, with Supabase planned a
 
 ## Live app
 
-<PASTE THE VERCEL URL HERE AFTER DEPLOYMENT>
+PASTE THE VERCEL URL HERE AFTER DEPLOYMENT
 
 ## Test login
 
@@ -52,16 +52,6 @@ Log in and open the **Profile** page. The Supabase status card runs one request 
 - **Not connected** when the request fails
 
 This is the only API call in this version. Everything else uses the hardcoded data in `src/services`.
-
-### Environment variables
-
-Copy `.env.example` to `.env` and fill in the project URL and the anon (public) key:
-
-- EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-- EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-
-
-The `.env` file is git-ignored. Only the anon key is ever used in the app, never the service role key.
 
 ## Getting started
 
