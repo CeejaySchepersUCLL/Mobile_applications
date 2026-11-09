@@ -30,20 +30,49 @@ They will be replaced by Supabase Auth.
 - **Create:** toggle between List an item and Post a request, with validated forms and a date picker for the request dates
 - **Profile:** name, email and log out
 - Installable PWA: web app manifest, service worker and app icons
+- - Supabase connection check on the Profile page (one API call to a hosted database)
 
-All data is hardcoded in `src/services` for now, so no API calls are made yet.
+All app data is hardcoded in `src/services` for now. The only API call is the Supabase connection check on the Profile page.
 
 ## Database
 
-<FILL IN AFTER THE SUPABASE STEP: project region, the `profiles` table and how the database check is run>
+The backend is a hosted Supabase project (PostgreSQL), region `<YOUR REGION, e.g. eu-central-1>`.
+
+| Table      | Columns                                  | Rows |
+|------------|------------------------------------------|------|
+| `profiles` | `id` (uuid), `full_name`, `avatar_url`, `building` | 4 dummy profiles (Jan, Mia, Tom, Sara) |
+
+Row Level Security is enabled on `profiles`, with a read-only policy for the `anon` and `authenticated` roles. This is acceptable for dummy data and will be tightened when login moves to Supabase Auth.
+
+### Checking that the database is up
+
+Log in and open the **Profile** page. The Supabase status card runs one request against the `profiles` table and shows:
+
+- **Connected (4 profiles)** when the database answers
+- **Not connected** when the request fails
+
+This is the only API call in this version. Everything else uses the hardcoded data in `src/services`.
+
+### Environment variables
+
+Copy `.env.example` to `.env` and fill in the project URL and the anon (public) key:
+
+- EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+- EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+
+
+The `.env` file is git-ignored. Only the anon key is ever used in the app, never the service role key.
 
 ## Getting started
 
 Requirements: Node.js and npm.
 
 ```bash
+```bash
 npm install
+cp .env.example .env     # then fill in the Supabase values
 npm run web
+```
 ```
 
 Open http://localhost:8081 and log in with the test account above.
